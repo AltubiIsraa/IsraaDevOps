@@ -1,9 +1,10 @@
 pipeline{
-agent any
-stages{
-stage('Hello'){
-steps{
-echo 'hello All'
-}
-}
+	agent any
+		stages{
+			stage('Hello'){
+					steps{
+						echo 'hello All'
+			}
+		}
+	}	
 }
