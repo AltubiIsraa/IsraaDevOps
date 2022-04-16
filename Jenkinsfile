@@ -13,7 +13,7 @@ pipeline{
                 }
 				stage('Save srtifact'){
                                         steps{
-							archiveArtifacts artifacts: 'sample', followSymlinks: false   
+							archiveArtifacts artifacts: 'sample1', followSymlinks: false   
                      }
                 }
 
