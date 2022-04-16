@@ -8,10 +8,10 @@ pipeline{
                         }
                 }
 				stage('Save srtifact'){
-                                        	steps{
-							archiveArtifacts artifacts: 'sample1', followSymlinks: fals
-			}
-                }
+                                        		steps{
+								archiveArtifacts artifacts: 'sample1', followSymlinks: false
+		}
+             }
 
         }
 }
