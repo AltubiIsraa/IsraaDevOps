@@ -24,7 +24,7 @@ pipeline{
                  }
 	          stage('Docker build'){
                  steps{
-                  sh ''docker build . --tag mprokopov/devops:v2
+                  sh 'docker build . --tag mprokopov/devops:v2'
                       }		     
                  }
 	          stage('Docker push'){
