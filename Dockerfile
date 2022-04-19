@@ -1,3 +1,3 @@
 FROM ubuntu
-COPY sample sample
-CMD /sample
+COPY sample1 sample1
+CMD /sample1
