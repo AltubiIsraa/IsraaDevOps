@@ -21,6 +21,7 @@ pipeline{
 		      withCredentials([usernamePassword(credentialsId: 'devops-docker-creds', usernameVariable: 'USERNAME', passeordVariable: 'PASSWORD')]){
                         sh 'docker login --username ${USERNAME} --password ${PASSWORD}'
                       }
+		    }
                  }
 	          stage('Docker build'){
                  steps{
