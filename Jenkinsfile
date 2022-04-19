@@ -25,12 +25,14 @@ pipeline{
                  }
 	          stage('Docker build'){
                  steps{
-                  sh 'docker build . --tag altubiisraa97/devops:v2'
+                  sh 'docker build . --tag altubiisraa97/devops:${BUILD_ID}
+'
                       }		     
                  }
 	          stage('Docker push'){
                  steps{
-		     sh 'docker push altubiisraa97/devops:v2'
+		     sh 'docker push altubiisraa97/devops:${BUILD_ID}
+'
                       }
                  }
         }
