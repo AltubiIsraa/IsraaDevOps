@@ -16,9 +16,14 @@ pipeline{
                       archiveArtifacts artifacts: 'sample1', followSymlinks: false
                      }
                  }
-		    stage('Run deployment'){
+		    stage('Run qa deployment'){
 			steps{
 			    build job: 'sample-deploy', parameters: [string(name: 'DEPLOY_TO', value: 'qa')]
+		      }
+		    }
+		    stage('Run production deployment'){
+			steps{
+			    build job: 'sample-deploy', parameters: [string(name: 'DEPLOY_TO', value: 'production')]
 		      }
 		    }
 	          stage('Docker login'){
