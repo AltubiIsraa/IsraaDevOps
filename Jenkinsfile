@@ -23,7 +23,7 @@ pipeline{
 			  }
 			}
 			steps{
-			    build job: 'sample-deploy', parameters: [string(name: 'DEPLOY_TO', value: 'qa')]
+			    build job: 'sample-deploy', parameters: [string(name: 'DEPLOY_TO', value: 'qa'), string(name: 'upstreamJobName', value: BRANCH_NAME)]
 		      }
 		    }
 		    stage('Run production deployment'){
@@ -31,7 +31,7 @@ pipeline{
 				  branch 'master'
 				}
 			steps{
-			    build job: 'sample-deploy', parameters: [string(name: 'DEPLOY_TO', value: 'production'), string(name: 'upstreamJobName', value: env.BRANCH_NAME)]
+			    build job: 'sample-deploy', parameters: [string(name: 'DEPLOY_TO', value: 'production'), string(name: 'upstreamJobName', value: BRANCH_NAME)]
 		      }
 		    }
 	          stage('Docker login'){
