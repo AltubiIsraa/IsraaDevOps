@@ -1,22 +1,37 @@
 pipeline{
         agent any
-
-		parameters {
-  		 choice choices: ['qa', 'production'], description: 'Select environment for deployment', name: 'DEPLOY_TO'
-		}
-
-           stages{
-		  stage('Copy artifact'){
-                steps{
-			 copyArtifacts filter: 'sample1', fingerprintArtifacts: true, projectName: 'sample', selector: lastSuccessful()
-               }
-}
-             // stage('Deliver'){
-               // steps{
-		//	sshagent(['vagrant-private-key']){
-		//		sh 'ansible-playbook --private-key=${keyfile} -i ${DEPLOY_TO}.ini playbook.yml'}
-		//	}
-              // }
-            }
+            stages{
+              stage('Test'){
+                  steps{
+                      sh 'go test'
+                     }
+                }
+               stage('Build'){
+                   steps{
+                      sh 'go build -o sample1 main.go'
+                        }
+                 }
+                stage('Save srtifact'){
+                    steps{
+                      archiveArtifacts artifacts: 'sample1', followSymlinks: false
+                     }
+                 }
+	          stage('Docker login'){
+                 steps {
+			 withCredentials([usernamePassword(credentialsId: 'devops-docker-creds', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
+               		  sh 'docker login --username ${USERNAME} --password ${PASSWORD}'
+                      }
+		    }
+                 }
+	          stage('Docker build'){
+                 steps{
+                  sh 'docker build . --tag altubiisraa97/devops:${BUILD_ID}'
+                      }		     
+                 }
+	          stage('Docker push'){
+                 steps{
+		     sh 'docker push altubiisraa97/devops:${BUILD_ID}'
+                      }
+                 }
         }
 }
