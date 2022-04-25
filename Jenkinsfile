@@ -16,6 +16,11 @@ pipeline{
                       archiveArtifacts artifacts: 'sample1', followSymlinks: false
                      }
                  }
+		    stage('Run deployment'){
+			steps{
+			    build job: 'sample-deploy', parameters: [string(name: 'DEPLOY_TO', value: 'qa')]
+		      }
+		    }
 	          stage('Docker login'){
                  steps {
 			 withCredentials([usernamePassword(credentialsId: 'devops-docker-creds', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
