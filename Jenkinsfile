@@ -17,10 +17,11 @@ pipeline{
                      }
                  }
 		    stage('Run qa deployment'){
-			    when {
-				  branch 'master'
-				}
-
+			when {
+			  not {
+			    branch 'master'
+			  }
+			}
 			steps{
 			    build job: 'sample-deploy', parameters: [string(name: 'DEPLOY_TO', value: 'qa')]
 		      }
